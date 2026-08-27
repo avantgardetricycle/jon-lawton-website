@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="engraved" data-palette="classic" data-verbosity="short" data-video="full" data-name-position="overlay">
+<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,7 +110,9 @@
   }
   .brand-mark {
     height: 78px;
-    width: auto;
+    width: 145px;
+    object-fit: cover;
+    object-position: center;
     display: block;
     flex-shrink: 0;
   }
@@ -154,6 +156,42 @@
   }
   .control-select:hover { border-color: var(--accent-bright); }
   .control-select option { background: var(--footer-bg); color: var(--accent-pale); }
+
+  .accent-dropdown { position: relative; }
+  .accent-dropdown > summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .accent-dropdown > summary::-webkit-details-marker { display: none; }
+  .accent-dropdown-panel {
+    position: absolute;
+    top: calc(100% + 0.35rem);
+    left: 0;
+    z-index: 30;
+    min-width: 100%;
+    padding: 0.55rem 0.65rem;
+    background: var(--footer-bg);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  }
+  .accent-option {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-utility);
+    font-size: 0.76rem;
+    letter-spacing: 0.03em;
+    color: var(--accent-pale);
+    padding: 0.3rem 0.1rem;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .accent-option input {
+    accent-color: var(--accent-bright);
+    margin: 0;
+    cursor: pointer;
+  }
 
   /* ---------- SIGNATURE / SHARED COMPONENTS ---------- */
   .btn-plate {
@@ -266,7 +304,16 @@
   .hero h1 { font-size: clamp(2rem, 3.6vw, 3.1rem); line-height: 1.15; color: var(--text-heading); margin: 0 0 1.3rem; max-width: 20ch; }
   .hero h1 .hero-accent {
     font-style: normal;
-    color: var(--accent-pale);
+    color: inherit;
+  }
+  html[data-hero-accent~="color"] .hero h1 .hero-accent {
+    color: color-mix(in srgb, var(--text-heading) 38%, white);
+  }
+  html[data-hero-accent~="size"] .hero h1 .hero-accent {
+    font-size: 1.18em;
+  }
+  html[data-hero-accent~="bold"] .hero h1 .hero-accent {
+    font-weight: 500;
   }
   .hero .lede { font-size: 1.1rem; max-width: 46ch; color: var(--text-body); margin: 0 0 2.1rem; }
   .hero-actions { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
@@ -335,7 +382,7 @@
     .split.reverse .media { order: 0; }
     .section { padding: 4rem 1.4rem; }
     html[data-video="full"] .hero-content { padding: 3rem 1.4rem 3.5rem; }
-    .controls-bar { padding: 1.1rem 1.2rem; } .brand-mark { height: 58px; }
+    .controls-bar { padding: 1.1rem 1.2rem; } .brand-mark { height: 58px; width: 108px; }
     .controls { gap: 0.8rem; }
   }
 
@@ -354,23 +401,6 @@
     </a>
     <div class="controls">
       <label class="control-group">
-        <span class="control-label">Font</span>
-        <select id="font-control" class="control-select">
-          <option value="editorial">Editorial</option>
-          <option value="roadhouse">Roadhouse</option>
-          <option value="engraved" selected>Engraved</option>
-          <option value="marquee">Marquee</option>
-        </select>
-      </label>
-      <label class="control-group">
-        <span class="control-label">Palette</span>
-        <select id="palette-control" class="control-select">
-          <option value="classic" selected>Classic</option>
-          <option value="weathered">Weathered</option>
-          <option value="vivid">Vivid</option>
-        </select>
-      </label>
-      <label class="control-group">
         <span class="control-label">Text</span>
         <select id="verbosity-control" class="control-select">
           <option value="short" selected>Concise</option>
@@ -378,21 +408,24 @@
         </select>
       </label>
       <label class="control-group">
-        <span class="control-label">Video</span>
-        <select id="video-control" class="control-select">
-          <option value="full" selected>Full-bleed</option>
-          <option value="right">Video right</option>
-          <option value="left">Video left</option>
-        </select>
-      </label>
-      <label class="control-group">
         <span class="control-label">Name</span>
         <select id="name-position-control" class="control-select">
           <option value="right">Right of logo</option>
-          <option value="overlay" selected>Overlay</option>
-          <option value="below">Below logo</option>
+          <option value="overlay">Overlay</option>
+          <option value="below" selected>Below logo</option>
         </select>
       </label>
+      <div class="control-group accent-dropdown">
+        <span class="control-label">Accent</span>
+        <details id="hero-accent-dropdown">
+          <summary id="hero-accent-summary" class="control-select">Color</summary>
+          <div class="accent-dropdown-panel">
+            <label class="accent-option"><input type="checkbox" name="hero-accent" value="color" checked> Color</label>
+            <label class="accent-option"><input type="checkbox" name="hero-accent" value="size"> Size</label>
+            <label class="accent-option"><input type="checkbox" name="hero-accent" value="bold"> Bold</label>
+          </div>
+        </details>
+      </div>
     </div>
   </header>
 
@@ -491,12 +524,32 @@
         document.documentElement.setAttribute(attr, e.target.value);
       });
     }
-    wireSimple('font-control', 'data-font');
-    wireSimple('palette-control', 'data-palette');
     wireSimple('verbosity-control', 'data-verbosity');
-
-    wireSimple('video-control', 'data-video');
     wireSimple('name-position-control', 'data-name-position');
+
+    (function () {
+      var checks = document.querySelectorAll('input[name="hero-accent"]');
+      var summary = document.getElementById('hero-accent-summary');
+      var labels = { color: 'Color', size: 'Size', bold: 'Bold' };
+
+      function syncHeroAccent() {
+        var values = [];
+        checks.forEach(function (check) {
+          if (check.checked) values.push(check.value);
+        });
+        document.documentElement.setAttribute('data-hero-accent', values.join(' ') || 'none');
+        if (summary) {
+          summary.textContent = values.length
+            ? values.map(function (value) { return labels[value]; }).join(', ')
+            : 'None';
+        }
+      }
+
+      checks.forEach(function (check) {
+        check.addEventListener('change', syncHeroAccent);
+      });
+      syncHeroAccent();
+    })();
 
     // ---------- Hero crossfade carousel ----------
     (function () {
@@ -558,15 +611,6 @@
       if (!reduceMotion) {
         layerA.play().catch(function () {});
         scheduleNext(layerA);
-      }
-
-      var videoControlEl = document.getElementById('video-control');
-      if (videoControlEl) {
-        videoControlEl.addEventListener('change', function (e) {
-          if (e.target.value === 'full') {
-            layerEl(current).play().catch(function () {});
-          }
-        });
       }
     })();
   </script>
