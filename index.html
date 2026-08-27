@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color">
+<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam="diamonds">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -270,6 +270,7 @@
   html[data-video="right"] .hero, html[data-video="left"] .hero {
     display: grid; grid-template-columns: 1fr 1fr; align-items: center;
     gap: 3.5rem; max-width: 1200px; margin: 0 auto; padding: 5rem 2rem;
+    overflow: visible;
   }
   html[data-video="left"] .hero-content { order: 2; }
   html[data-video="left"] .hero-visual { order: 1; }
@@ -336,15 +337,101 @@
   .section p { color: var(--text-body); font-size: 1.05rem; max-width: 52ch; margin: 0 0 1.6rem; }
 
   /* ---------- QUOTE STRIP ---------- */
-  .quote-strip { background: var(--surface-a); color: var(--surface-a-ink); padding: 4.5rem 2rem; text-align: center; }
+  .quote-strip {
+    background: var(--surface-a);
+    color: var(--surface-a-ink);
+    padding: 4.5rem 2rem;
+    text-align: center;
+    position: relative;
+  }
   .quote-strip .pull-quote { margin: 0 auto; max-width: 660px; font-size: clamp(1.2rem, 2.2vw, 1.6rem); }
 
   /* ---------- BIO (surface-b) ---------- */
-  .bio-section { background: var(--surface-b); color: var(--surface-b-ink); }
+  .bio-section {
+    background: var(--surface-b);
+    color: var(--surface-b-ink);
+    max-width: none;
+    width: 100%;
+    position: relative;
+  }
+  .bio-section .split { max-width: 1200px; margin: 0 auto; }
   .bio-section h2 { color: var(--surface-b-ink); }
   .bio-section p { color: var(--surface-b-ink-muted); }
   .bio-section .link-quiet { color: var(--surface-b-ink); border-color: rgba(0,0,0,0.3); }
   .bio-section .link-quiet:hover { border-color: var(--accent); color: var(--accent); }
+
+  .quote-strip::before,
+  .quote-strip::after,
+  .bio-section::before,
+  .bio-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 52px;
+    pointer-events: none;
+    z-index: 3;
+    background-color: var(--accent);
+    background-repeat: no-repeat;
+    background-position: center;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+  .quote-strip::before,
+  .bio-section::before { top: 0; transform: translateY(-50%); }
+  .quote-strip::after,
+  .bio-section::after { bottom: 0; transform: translateY(50%); }
+
+  html[data-seam="diamonds"] .quote-strip::before,
+  html[data-seam="diamonds"] .quote-strip::after,
+  html[data-seam="diamonds"] .bio-section::before,
+  html[data-seam="diamonds"] .bio-section::after {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 36'%3E%3Cg fill='%23000'%3E%3Cpolygon points='28,15 31,18 28,21 25,18'/%3E%3Cpolygon points='66.7,14.2 70.5,18 66.7,21.8 62.9,18'/%3E%3Cpolygon points='105.3,13.2 110.1,18 105.3,22.8 100.5,18'/%3E%3Cpolygon points='144,11.8 150.2,18 144,24.2 137.8,18'/%3E%3Cpolygon points='182.7,10 190.7,18 182.7,26 174.7,18'/%3E%3Cpolygon points='221.3,7.5 231.8,18 221.3,28.5 210.8,18'/%3E%3Cpolygon points='260,4 274,18 260,32 246,18'/%3E%3Cpolygon points='298.7,7.5 309.2,18 298.7,28.5 288.2,18'/%3E%3Cpolygon points='337.3,10 345.3,18 337.3,26 329.3,18'/%3E%3Cpolygon points='376,11.8 382.2,18 376,24.2 369.8,18'/%3E%3Cpolygon points='414.7,13.2 419.5,18 414.7,22.8 409.9,18'/%3E%3Cpolygon points='453.3,14.2 457.1,18 453.3,21.8 449.5,18'/%3E%3Cpolygon points='492,15 495,18 492,21 489,18'/%3E%3C/g%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 36'%3E%3Cg fill='%23000'%3E%3Cpolygon points='28,15 31,18 28,21 25,18'/%3E%3Cpolygon points='66.7,14.2 70.5,18 66.7,21.8 62.9,18'/%3E%3Cpolygon points='105.3,13.2 110.1,18 105.3,22.8 100.5,18'/%3E%3Cpolygon points='144,11.8 150.2,18 144,24.2 137.8,18'/%3E%3Cpolygon points='182.7,10 190.7,18 182.7,26 174.7,18'/%3E%3Cpolygon points='221.3,7.5 231.8,18 221.3,28.5 210.8,18'/%3E%3Cpolygon points='260,4 274,18 260,32 246,18'/%3E%3Cpolygon points='298.7,7.5 309.2,18 298.7,28.5 288.2,18'/%3E%3Cpolygon points='337.3,10 345.3,18 337.3,26 329.3,18'/%3E%3Cpolygon points='376,11.8 382.2,18 376,24.2 369.8,18'/%3E%3Cpolygon points='414.7,13.2 419.5,18 414.7,22.8 409.9,18'/%3E%3Cpolygon points='453.3,14.2 457.1,18 453.3,21.8 449.5,18'/%3E%3Cpolygon points='492,15 495,18 492,21 489,18'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-size: min(520px, 88vw) 36px;
+    mask-size: min(520px, 88vw) 36px;
+  }
+
+  html[data-seam="oval"] .quote-strip::before,
+  html[data-seam="oval"] .quote-strip::after,
+  html[data-seam="oval"] .bio-section::before,
+  html[data-seam="oval"] .bio-section::after {
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 36' fill='%23000'%3E%3Cpath d='M18 18 H206 M274 18 H462' stroke='%23000' stroke-width='1' fill='none'/%3E%3Ccircle cx='30' cy='18' r='1.15'/%3E%3Ccircle cx='450' cy='18' r='1.15'/%3E%3Ccircle cx='62' cy='18' r='1.4'/%3E%3Ccircle cx='418' cy='18' r='1.4'/%3E%3Ccircle cx='96' cy='18' r='1.7'/%3E%3Ccircle cx='384' cy='18' r='1.7'/%3E%3Ccircle cx='132' cy='18' r='2.05'/%3E%3Ccircle cx='348' cy='18' r='2.05'/%3E%3Ccircle cx='170' cy='18' r='2.4'/%3E%3Ccircle cx='310' cy='18' r='2.4'/%3E%3Ccircle cx='210' cy='18' r='2.8'/%3E%3Ccircle cx='270' cy='18' r='2.8'/%3E%3Cellipse cx='240' cy='18' rx='28' ry='13' fill='none' stroke='%23000' stroke-width='1.7'/%3E%3Cellipse cx='240' cy='18' rx='17' ry='7' fill='none' stroke='%23000' stroke-width='1.15'/%3E%3Ccircle cx='240' cy='18' r='2.6'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 36' fill='%23000'%3E%3Cpath d='M18 18 H206 M274 18 H462' stroke='%23000' stroke-width='1' fill='none'/%3E%3Ccircle cx='30' cy='18' r='1.15'/%3E%3Ccircle cx='450' cy='18' r='1.15'/%3E%3Ccircle cx='62' cy='18' r='1.4'/%3E%3Ccircle cx='418' cy='18' r='1.4'/%3E%3Ccircle cx='96' cy='18' r='1.7'/%3E%3Ccircle cx='384' cy='18' r='1.7'/%3E%3Ccircle cx='132' cy='18' r='2.05'/%3E%3Ccircle cx='348' cy='18' r='2.05'/%3E%3Ccircle cx='170' cy='18' r='2.4'/%3E%3Ccircle cx='310' cy='18' r='2.4'/%3E%3Ccircle cx='210' cy='18' r='2.8'/%3E%3Ccircle cx='270' cy='18' r='2.8'/%3E%3Cellipse cx='240' cy='18' rx='28' ry='13' fill='none' stroke='%23000' stroke-width='1.7'/%3E%3Cellipse cx='240' cy='18' rx='17' ry='7' fill='none' stroke='%23000' stroke-width='1.15'/%3E%3Ccircle cx='240' cy='18' r='2.6'/%3E%3C/svg%3E");
+    -webkit-mask-size: min(480px, 88vw) 36px;
+    mask-size: min(480px, 88vw) 36px;
+  }
+
+  html[data-seam="iron"] .quote-strip::before,
+  html[data-seam="iron"] .quote-strip::after,
+  html[data-seam="iron"] .bio-section::before,
+  html[data-seam="iron"] .bio-section::after {
+    height: 64px;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 52' fill='none' stroke='%23000' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 26 H148 M252 26 H390' stroke-width='1'/%3E%3Ccircle cx='200' cy='26' r='5' fill='%23000' stroke='none'/%3E%3Ccircle cx='200' cy='26' r='9.8'/%3E%3Cpath d='M200 16.2 C195.5 10 200 3.5 200 3.5 C200 3.5 204.5 10 200 16.2'/%3E%3Cpath d='M200 16.2 C192 11.5 189.5 5.5 194 5'/%3E%3Cpath d='M200 16.2 C208 11.5 210.5 5.5 206 5'/%3E%3Cpath d='M200 35.8 C195.5 42 200 48.5 200 48.5 C200 48.5 204.5 42 200 35.8'/%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3Cg transform='translate(400,0) scale(-1,1)'%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3C/g%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 52' fill='none' stroke='%23000' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 26 H148 M252 26 H390' stroke-width='1'/%3E%3Ccircle cx='200' cy='26' r='5' fill='%23000' stroke='none'/%3E%3Ccircle cx='200' cy='26' r='9.8'/%3E%3Cpath d='M200 16.2 C195.5 10 200 3.5 200 3.5 C200 3.5 204.5 10 200 16.2'/%3E%3Cpath d='M200 16.2 C192 11.5 189.5 5.5 194 5'/%3E%3Cpath d='M200 16.2 C208 11.5 210.5 5.5 206 5'/%3E%3Cpath d='M200 35.8 C195.5 42 200 48.5 200 48.5 C200 48.5 204.5 42 200 35.8'/%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3Cg transform='translate(400,0) scale(-1,1)'%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3C/g%3E%3C/svg%3E");
+    -webkit-mask-size: min(440px, 90vw) 58px;
+    mask-size: min(440px, 90vw) 58px;
+  }
+
+  html[data-seam="rules"] .quote-strip::before,
+  html[data-seam="rules"] .quote-strip::after,
+  html[data-seam="rules"] .bio-section::before,
+  html[data-seam="rules"] .bio-section::after {
+    height: 22px;
+    background-color: transparent;
+    -webkit-mask-image: none;
+    mask-image: none;
+    border-top: 2px solid var(--surface-b);
+    border-bottom: 2px solid var(--surface-b-ink);
+    background-image:
+      linear-gradient(#b4232a, #b4232a),
+      linear-gradient(#b4232a, #b4232a),
+      linear-gradient(#b4232a, #b4232a);
+    background-size: 28px 4px, 88px 4px, 28px 4px;
+    background-position: calc(50% - 72px) 50%, 50% 50%, calc(50% + 72px) 50%;
+  }
 
   /* ---------- SHOWS (surface-c if defined, else falls back to bg) ---------- */
   .shows-section { background: var(--surface-c, var(--bg)); color: var(--surface-c-text, var(--text-body)); }
@@ -426,6 +513,15 @@
           </div>
         </details>
       </div>
+      <label class="control-group">
+        <span class="control-label">Seam</span>
+        <select id="seam-control" class="control-select">
+          <option value="diamonds" selected>Diamonds</option>
+          <option value="oval">Oval &amp; dots</option>
+          <option value="iron">Wrought iron</option>
+          <option value="rules">Double rule</option>
+        </select>
+      </label>
     </div>
   </header>
 
@@ -526,6 +622,7 @@
     }
     wireSimple('verbosity-control', 'data-verbosity');
     wireSimple('name-position-control', 'data-name-position');
+    wireSimple('seam-control', 'data-seam');
 
     (function () {
       var checks = document.querySelectorAll('input[name="hero-accent"]');
