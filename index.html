@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam="diamonds">
+<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="diamonds" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -360,77 +360,47 @@
   .bio-section .link-quiet { color: var(--surface-b-ink); border-color: rgba(0,0,0,0.3); }
   .bio-section .link-quiet:hover { border-color: var(--accent); color: var(--accent); }
 
-  .quote-strip::before,
-  .quote-strip::after,
-  .bio-section::before,
-  .bio-section::after {
-    content: "";
+  html[data-seam-color="gold"] {
+    --seam-bright: #d9a34a;
+    --seam-mid: #b8822a;
+    --seam-dark: #8a6a26;
+  }
+  html[data-seam-color="burgundy"] {
+    --seam-bright: #9a2440;
+    --seam-mid: #740012;
+    --seam-dark: #4a000c;
+  }
+
+  .section-seam {
+    position: relative;
+    height: 0;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .section-seam svg {
     position: absolute;
     left: 0;
     right: 0;
-    height: 52px;
-    pointer-events: none;
-    z-index: 3;
-    background-color: var(--accent);
-    background-repeat: no-repeat;
-    background-position: center;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-position: center;
-    mask-position: center;
+    width: 100%;
+    overflow: visible;
   }
-  .quote-strip::before,
-  .bio-section::before { top: 0; transform: translateY(-50%); }
-  .quote-strip::after,
-  .bio-section::after { bottom: 0; transform: translateY(50%); }
-
-  html[data-seam="diamonds"] .quote-strip::before,
-  html[data-seam="diamonds"] .quote-strip::after,
-  html[data-seam="diamonds"] .bio-section::before,
-  html[data-seam="diamonds"] .bio-section::after {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 36'%3E%3Cg fill='%23000'%3E%3Cpolygon points='28,15 31,18 28,21 25,18'/%3E%3Cpolygon points='66.7,14.2 70.5,18 66.7,21.8 62.9,18'/%3E%3Cpolygon points='105.3,13.2 110.1,18 105.3,22.8 100.5,18'/%3E%3Cpolygon points='144,11.8 150.2,18 144,24.2 137.8,18'/%3E%3Cpolygon points='182.7,10 190.7,18 182.7,26 174.7,18'/%3E%3Cpolygon points='221.3,7.5 231.8,18 221.3,28.5 210.8,18'/%3E%3Cpolygon points='260,4 274,18 260,32 246,18'/%3E%3Cpolygon points='298.7,7.5 309.2,18 298.7,28.5 288.2,18'/%3E%3Cpolygon points='337.3,10 345.3,18 337.3,26 329.3,18'/%3E%3Cpolygon points='376,11.8 382.2,18 376,24.2 369.8,18'/%3E%3Cpolygon points='414.7,13.2 419.5,18 414.7,22.8 409.9,18'/%3E%3Cpolygon points='453.3,14.2 457.1,18 453.3,21.8 449.5,18'/%3E%3Cpolygon points='492,15 495,18 492,21 489,18'/%3E%3C/g%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 520 36'%3E%3Cg fill='%23000'%3E%3Cpolygon points='28,15 31,18 28,21 25,18'/%3E%3Cpolygon points='66.7,14.2 70.5,18 66.7,21.8 62.9,18'/%3E%3Cpolygon points='105.3,13.2 110.1,18 105.3,22.8 100.5,18'/%3E%3Cpolygon points='144,11.8 150.2,18 144,24.2 137.8,18'/%3E%3Cpolygon points='182.7,10 190.7,18 182.7,26 174.7,18'/%3E%3Cpolygon points='221.3,7.5 231.8,18 221.3,28.5 210.8,18'/%3E%3Cpolygon points='260,4 274,18 260,32 246,18'/%3E%3Cpolygon points='298.7,7.5 309.2,18 298.7,28.5 288.2,18'/%3E%3Cpolygon points='337.3,10 345.3,18 337.3,26 329.3,18'/%3E%3Cpolygon points='376,11.8 382.2,18 376,24.2 369.8,18'/%3E%3Cpolygon points='414.7,13.2 419.5,18 414.7,22.8 409.9,18'/%3E%3Cpolygon points='453.3,14.2 457.1,18 453.3,21.8 449.5,18'/%3E%3Cpolygon points='492,15 495,18 492,21 489,18'/%3E%3C/g%3E%3C/svg%3E");
-    -webkit-mask-size: min(520px, 88vw) 36px;
-    mask-size: min(520px, 88vw) 36px;
+  .section-seam .seam-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--seam-mid) 15%, var(--seam-mid) 85%, transparent);
   }
-
-  html[data-seam="oval"] .quote-strip::before,
-  html[data-seam="oval"] .quote-strip::after,
-  html[data-seam="oval"] .bio-section::before,
-  html[data-seam="oval"] .bio-section::after {
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 36' fill='%23000'%3E%3Cpath d='M18 18 H206 M274 18 H462' stroke='%23000' stroke-width='1' fill='none'/%3E%3Ccircle cx='30' cy='18' r='1.15'/%3E%3Ccircle cx='450' cy='18' r='1.15'/%3E%3Ccircle cx='62' cy='18' r='1.4'/%3E%3Ccircle cx='418' cy='18' r='1.4'/%3E%3Ccircle cx='96' cy='18' r='1.7'/%3E%3Ccircle cx='384' cy='18' r='1.7'/%3E%3Ccircle cx='132' cy='18' r='2.05'/%3E%3Ccircle cx='348' cy='18' r='2.05'/%3E%3Ccircle cx='170' cy='18' r='2.4'/%3E%3Ccircle cx='310' cy='18' r='2.4'/%3E%3Ccircle cx='210' cy='18' r='2.8'/%3E%3Ccircle cx='270' cy='18' r='2.8'/%3E%3Cellipse cx='240' cy='18' rx='28' ry='13' fill='none' stroke='%23000' stroke-width='1.7'/%3E%3Cellipse cx='240' cy='18' rx='17' ry='7' fill='none' stroke='%23000' stroke-width='1.15'/%3E%3Ccircle cx='240' cy='18' r='2.6'/%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 36' fill='%23000'%3E%3Cpath d='M18 18 H206 M274 18 H462' stroke='%23000' stroke-width='1' fill='none'/%3E%3Ccircle cx='30' cy='18' r='1.15'/%3E%3Ccircle cx='450' cy='18' r='1.15'/%3E%3Ccircle cx='62' cy='18' r='1.4'/%3E%3Ccircle cx='418' cy='18' r='1.4'/%3E%3Ccircle cx='96' cy='18' r='1.7'/%3E%3Ccircle cx='384' cy='18' r='1.7'/%3E%3Ccircle cx='132' cy='18' r='2.05'/%3E%3Ccircle cx='348' cy='18' r='2.05'/%3E%3Ccircle cx='170' cy='18' r='2.4'/%3E%3Ccircle cx='310' cy='18' r='2.4'/%3E%3Ccircle cx='210' cy='18' r='2.8'/%3E%3Ccircle cx='270' cy='18' r='2.8'/%3E%3Cellipse cx='240' cy='18' rx='28' ry='13' fill='none' stroke='%23000' stroke-width='1.7'/%3E%3Cellipse cx='240' cy='18' rx='17' ry='7' fill='none' stroke='%23000' stroke-width='1.15'/%3E%3Ccircle cx='240' cy='18' r='2.6'/%3E%3C/svg%3E");
-    -webkit-mask-size: min(480px, 88vw) 36px;
-    mask-size: min(480px, 88vw) 36px;
-  }
-
-  html[data-seam="iron"] .quote-strip::before,
-  html[data-seam="iron"] .quote-strip::after,
-  html[data-seam="iron"] .bio-section::before,
-  html[data-seam="iron"] .bio-section::after {
-    height: 64px;
-    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 52' fill='none' stroke='%23000' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 26 H148 M252 26 H390' stroke-width='1'/%3E%3Ccircle cx='200' cy='26' r='5' fill='%23000' stroke='none'/%3E%3Ccircle cx='200' cy='26' r='9.8'/%3E%3Cpath d='M200 16.2 C195.5 10 200 3.5 200 3.5 C200 3.5 204.5 10 200 16.2'/%3E%3Cpath d='M200 16.2 C192 11.5 189.5 5.5 194 5'/%3E%3Cpath d='M200 16.2 C208 11.5 210.5 5.5 206 5'/%3E%3Cpath d='M200 35.8 C195.5 42 200 48.5 200 48.5 C200 48.5 204.5 42 200 35.8'/%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3Cg transform='translate(400,0) scale(-1,1)'%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3C/g%3E%3C/svg%3E");
-    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 52' fill='none' stroke='%23000' stroke-width='1.45' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10 26 H148 M252 26 H390' stroke-width='1'/%3E%3Ccircle cx='200' cy='26' r='5' fill='%23000' stroke='none'/%3E%3Ccircle cx='200' cy='26' r='9.8'/%3E%3Cpath d='M200 16.2 C195.5 10 200 3.5 200 3.5 C200 3.5 204.5 10 200 16.2'/%3E%3Cpath d='M200 16.2 C192 11.5 189.5 5.5 194 5'/%3E%3Cpath d='M200 16.2 C208 11.5 210.5 5.5 206 5'/%3E%3Cpath d='M200 35.8 C195.5 42 200 48.5 200 48.5 C200 48.5 204.5 42 200 35.8'/%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3Cg transform='translate(400,0) scale(-1,1)'%3E%3Cpath d='M190.5 26 C172 26 170 10 152 10 C134 10 136 26 152 26 C166 26 164 42 146 42 C124 42 112 26 88 26 C70 26 62 14 40 16'/%3E%3Cpath d='M40 16 C26 17 24 30 38 30 C48 30 48 18 40 16'/%3E%3Cpath d='M152 10 C150 2 138 2 136 10'/%3E%3Cpath d='M190.5 26 C186 20 178 20 176 26'/%3E%3C/g%3E%3C/svg%3E");
-    -webkit-mask-size: min(440px, 90vw) 58px;
-    mask-size: min(440px, 90vw) 58px;
-  }
-
-  html[data-seam="rules"] .quote-strip::before,
-  html[data-seam="rules"] .quote-strip::after,
-  html[data-seam="rules"] .bio-section::before,
-  html[data-seam="rules"] .bio-section::after {
-    height: 22px;
-    background-color: transparent;
-    -webkit-mask-image: none;
-    mask-image: none;
-    border-top: 2px solid var(--surface-b);
-    border-bottom: 2px solid var(--surface-b-ink);
-    background-image:
-      linear-gradient(#b4232a, #b4232a),
-      linear-gradient(#b4232a, #b4232a),
-      linear-gradient(#b4232a, #b4232a);
-    background-size: 28px 4px, 88px 4px, 28px 4px;
-    background-position: calc(50% - 72px) 50%, 50% 50%, calc(50% + 72px) 50%;
+  .section-seam .seam-plaque {
+    position: absolute;
+    left: 50%;
+    top: -4px;
+    transform: translateX(-50%);
+    width: 46px;
+    height: 8px;
+    background: var(--seam-mid);
+    clip-path: polygon(18% 0, 82% 0, 100% 50%, 82% 100%, 18% 100%, 0 50%);
   }
 
   /* ---------- SHOWS (surface-c if defined, else falls back to bg) ---------- */
@@ -514,12 +484,20 @@
         </details>
       </div>
       <label class="control-group">
-        <span class="control-label">Seam</span>
-        <select id="seam-control" class="control-select">
+        <span class="control-label">Divider</span>
+        <select id="seam-shape-control" class="control-select">
           <option value="diamonds" selected>Diamonds</option>
-          <option value="oval">Oval &amp; dots</option>
-          <option value="iron">Wrought iron</option>
-          <option value="rules">Double rule</option>
+          <option value="emblem">Diamonds + emblem</option>
+          <option value="elongated">Elongated diamonds</option>
+          <option value="curl">Curl</option>
+          <option value="plaque">Plaque</option>
+        </select>
+      </label>
+      <label class="control-group">
+        <span class="control-label">Divider color</span>
+        <select id="seam-color-control" class="control-select">
+          <option value="gold" selected>Gold</option>
+          <option value="burgundy">Burgundy</option>
         </select>
       </label>
     </div>
@@ -545,9 +523,11 @@
     </div>
   </section>
 
+  <div class="section-seam" aria-hidden="true"></div>
   <section class="quote-strip">
     <p class="pull-quote">&ldquo;I don't usually watch the opening act&hellip; He killed!&rdquo;<cite>John Hammond</cite></p>
   </section>
+  <div class="section-seam" aria-hidden="true"></div>
 
   <section class="section" id="release">
     <div class="split">
@@ -572,6 +552,7 @@
     </div>
   </section>
 
+  <div class="section-seam" aria-hidden="true"></div>
   <section class="section bio-section" id="bio">
     <div class="split reverse">
       <div>
@@ -587,6 +568,7 @@
     </div>
   </section>
 
+  <div class="section-seam" aria-hidden="true"></div>
   <section class="section shows-section" id="shows">
     <p class="eyebrow">On the road</p>
     <h2 class="display" style="margin-bottom:1.8rem;">Shows and such</h2>
@@ -622,7 +604,30 @@
     }
     wireSimple('verbosity-control', 'data-verbosity');
     wireSimple('name-position-control', 'data-name-position');
-    wireSimple('seam-control', 'data-seam');
+    wireSimple('seam-shape-control', 'data-seam-shape');
+    wireSimple('seam-color-control', 'data-seam-color');
+
+    (function () {
+      var shapes = {
+        diamonds: '<svg viewBox="0 0 800 28" preserveAspectRatio="none" style="top:-14px;height:28px;"><defs><linearGradient id="__ID__" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--seam-mid)" stop-opacity="0"/><stop offset="18%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="82%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="100%" stop-color="var(--seam-mid)" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="14" x2="800" y2="14" stroke="url(#__ID__)" stroke-width="1"/><polygon points="400,4 410,14 400,24 390,14" fill="var(--seam-bright)"/><polygon points="333,7 341,14 333,21 325,14" fill="var(--seam-mid)"/><polygon points="467,7 475,14 467,21 459,14" fill="var(--seam-mid)"/><polygon points="278,10 284,14 278,18 272,14" fill="var(--seam-dark)"/><polygon points="522,10 528,14 522,18 516,14" fill="var(--seam-dark)"/></svg>',
+        emblem: '<svg viewBox="0 0 800 48" preserveAspectRatio="none" style="top:-24px;height:48px;"><defs><linearGradient id="__ID__" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--seam-mid)" stop-opacity="0"/><stop offset="18%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="82%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="100%" stop-color="var(--seam-mid)" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="24" x2="800" y2="24" stroke="url(#__ID__)" stroke-width="1"/><polygon points="400,12 412,24 400,36 388,24" fill="none" stroke="var(--seam-bright)" stroke-width="1.5"/><circle cx="400" cy="24" r="2.6" fill="var(--seam-bright)"/><polygon points="333,17 341,24 333,31 325,24" fill="var(--seam-mid)"/><polygon points="467,17 475,24 467,31 459,24" fill="var(--seam-mid)"/><polygon points="278,20 284,24 278,28 272,24" fill="var(--seam-dark)"/><polygon points="522,20 528,24 522,28 516,24" fill="var(--seam-dark)"/></svg>',
+        elongated: '<svg viewBox="0 0 800 48" preserveAspectRatio="none" style="top:-24px;height:48px;"><defs><linearGradient id="__ID__" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--seam-mid)" stop-opacity="0"/><stop offset="18%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="82%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="100%" stop-color="var(--seam-mid)" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="24" x2="800" y2="24" stroke="url(#__ID__)" stroke-width="1"/><path d="M400,17 Q402.1,22.95 414,24 Q402.1,25.05 400,31 Q397.9,25.05 386,24 Q397.9,22.95 400,17 Z" fill="var(--seam-bright)"/><path d="M333,19 Q334.5,23.25 343,24 Q334.5,24.75 333,29 Q331.5,24.75 323,24 Q331.5,23.25 333,19 Z" fill="var(--seam-mid)"/><path d="M467,19 Q468.5,23.25 477,24 Q468.5,24.75 467,29 Q465.5,24.75 457,24 Q465.5,23.25 467,19 Z" fill="var(--seam-mid)"/><path d="M278,20.5 Q279.05,23.475 285,24 Q279.05,24.525 278,27.5 Q276.95,24.525 271,24 Q276.95,23.475 278,20.5 Z" fill="var(--seam-dark)"/><path d="M522,20.5 Q523.05,23.475 529,24 Q523.05,24.525 522,27.5 Q520.95,24.525 515,24 Q520.95,23.475 522,20.5 Z" fill="var(--seam-dark)"/></svg>',
+        curl: '<svg viewBox="0 0 800 48" preserveAspectRatio="none" style="top:-24px;height:48px;"><defs><linearGradient id="__ID__" x1="0" y1="0" x2="800" y2="0" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="var(--seam-mid)" stop-opacity="0"/><stop offset="8%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="92%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="100%" stop-color="var(--seam-mid)" stop-opacity="0"/></linearGradient></defs><polygon points="400,17 407,24 400,31 393,24" fill="none" stroke="var(--seam-mid)" stroke-width="1.3"/><circle cx="400" cy="24" r="2.2" fill="var(--seam-mid)"/><path d="M393,24 C 375,13 355,9 335,11" fill="none" stroke="url(#__ID__)" stroke-width="2.4" stroke-linecap="round"/><path d="M335,11 C 315,13 293,20 283,28" fill="none" stroke="url(#__ID__)" stroke-width="1.8" stroke-linecap="round"/><path d="M283,28 C 278,33 262,37 250,32" fill="none" stroke="url(#__ID__)" stroke-width="1.3" stroke-linecap="round"/><path d="M250,32 C 244,28 244,25 245,24" fill="none" stroke="url(#__ID__)" stroke-width="0.9" stroke-linecap="round"/><path d="M245,24 L 0,24" fill="none" stroke="url(#__ID__)" stroke-width="0.6" stroke-linecap="round"/><path d="M407,24 C 425,13 445,9 465,11" fill="none" stroke="url(#__ID__)" stroke-width="2.4" stroke-linecap="round"/><path d="M465,11 C 485,13 507,20 517,28" fill="none" stroke="url(#__ID__)" stroke-width="1.8" stroke-linecap="round"/><path d="M517,28 C 522,33 538,37 550,32" fill="none" stroke="url(#__ID__)" stroke-width="1.3" stroke-linecap="round"/><path d="M550,32 C 556,28 556,25 555,24" fill="none" stroke="url(#__ID__)" stroke-width="0.9" stroke-linecap="round"/><path d="M555,24 L 800,24" fill="none" stroke="url(#__ID__)" stroke-width="0.6" stroke-linecap="round"/></svg>',
+        plaque: '<span class="seam-line"></span><span class="seam-plaque"></span>'
+      };
+
+      function renderSeams() {
+        var shape = document.documentElement.getAttribute('data-seam-shape') || 'diamonds';
+        var html = shapes[shape] || shapes.diamonds;
+        document.querySelectorAll('.section-seam').forEach(function (el, i) {
+          el.innerHTML = html.replace(/__ID__/g, 'seamFade' + i);
+        });
+      }
+
+      var shapeEl = document.getElementById('seam-shape-control');
+      if (shapeEl) shapeEl.addEventListener('change', renderSeams);
+      renderSeams();
+    })();
 
     (function () {
       var checks = document.querySelectorAll('input[name="hero-accent"]');
