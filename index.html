@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="diamonds" data-seam-color="gold">
+<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -486,9 +486,9 @@
       <label class="control-group">
         <span class="control-label">Divider</span>
         <select id="seam-shape-control" class="control-select">
-          <option value="diamonds" selected>Diamonds</option>
+          <option value="diamonds">Diamonds</option>
           <option value="emblem">Diamonds + emblem</option>
-          <option value="elongated">Elongated diamonds</option>
+          <option value="elongated" selected>Elongated diamonds</option>
           <option value="curl">Curl</option>
           <option value="plaque">Plaque</option>
         </select>
@@ -617,7 +617,7 @@
       };
 
       function renderSeams() {
-        var shape = document.documentElement.getAttribute('data-seam-shape') || 'diamonds';
+        var shape = document.documentElement.getAttribute('data-seam-shape') || 'elongated';
         var html = shapes[shape] || shapes.diamonds;
         document.querySelectorAll('.section-seam').forEach(function (el, i) {
           el.innerHTML = html.replace(/__ID__/g, 'seamFade' + i);
