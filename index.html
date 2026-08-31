@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="elongated" data-seam-color="gold">
+<html lang="en" data-font="editorial" data-palette="weathered" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,9 +70,6 @@
     margin: 0 0 1rem;
   }
   .display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
-
-  .verbose-only { display: none; }
-  html[data-verbosity="long"] .verbose-only { display: revert; }
 
   /* ---------- CONTROLS BAR (replaces the navbar) ---------- */
   .controls-bar {
@@ -316,7 +313,6 @@
   html[data-hero-accent~="bold"] .hero h1 .hero-accent {
     font-weight: 500;
   }
-  .hero .lede { font-size: 1.1rem; max-width: 46ch; color: var(--text-body); margin: 0 0 2.1rem; }
   .hero-actions { display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap; }
 
   /* ---------- SECTION SHELL ---------- */
@@ -458,13 +454,6 @@
     </a>
     <div class="controls">
       <label class="control-group">
-        <span class="control-label">Text</span>
-        <select id="verbosity-control" class="control-select">
-          <option value="short" selected>Concise</option>
-          <option value="long">Full</option>
-        </select>
-      </label>
-      <label class="control-group">
         <span class="control-label">Name</span>
         <select id="name-position-control" class="control-select">
           <option value="right">Right of logo</option>
@@ -513,9 +502,7 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="eyebrow verbose-only">Traditional &amp; Original Blues, Country &amp; Folk</p>
-      <h1 class="display">A modern singer/songwriter who <span class="hero-accent">makes tradition come alive<span class="verbose-only">, every time he performs</span>.</span></h1>
-      <p class="lede verbose-only">Jon Lawton has spent decades writing, recording, and touring blues, country, and folk, rotating through National Steel, 6- and 12-string, and banjo depending on what a song calls for.</p>
+      <h1 class="display">A modern singer/songwriter who <span class="hero-accent">makes tradition come alive.</span></h1>
       <div class="hero-actions">
         <a class="btn-plate" href="#release">Hear Midnight with the Light On</a>
         <a class="link-quiet" href="#shows">See him perform &rarr;</a>
@@ -559,7 +546,7 @@
         <p class="eyebrow">The short version</p>
         <h2 class="display">Still one of the best-kept secrets in blues and folk</h2>
         <p class="pull-quote">&ldquo;The blues is an elemental building block of music.&rdquo;<cite>Jon Lawton, in a 2014 interview</cite></p>
-        <p>He's been playing guitar since the eighth grade<span class="verbose-only">, and classical piano even earlier, a discipline he says he mostly resented at the time</span>. A cousin's tickets to see the Rolling Stones and the Grateful Dead pulled him toward the blues in his teens<span class="verbose-only">, growing up amid the orange groves of early-1960s Orange County</span>, and he's been chasing that shuffle ever since<span class="verbose-only">, picking up fingerstyle blues, a little banjo, and some slide Dobro along the way</span>.</p>
+        <p>He's been playing guitar since the eighth grade, and classical piano even earlier, a discipline he says he mostly resented at the time. A cousin's tickets to see the Rolling Stones and the Grateful Dead pulled him toward the blues in his teens, growing up amid the orange groves of early-1960s Orange County, and he's been chasing that shuffle ever since, picking up fingerstyle blues, a little banjo, and some slide Dobro along the way.</p>
         <a class="link-quiet" href="#">Read the full story &rarr;</a>
       </div>
       <div class="media portrait">
@@ -602,7 +589,6 @@
         document.documentElement.setAttribute(attr, e.target.value);
       });
     }
-    wireSimple('verbosity-control', 'data-verbosity');
     wireSimple('name-position-control', 'data-name-position');
     wireSimple('seam-shape-control', 'data-seam-shape');
     wireSimple('seam-color-control', 'data-seam-color');
