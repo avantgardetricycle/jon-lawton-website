@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-font="editorial" data-palette="weathered" data-verbosity="short" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="elongated" data-seam-color="gold">
+<html lang="en" data-font="editorial" data-palette="weathered" data-video="right" data-name-position="below" data-hero-accent="color" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,8 +71,8 @@
   }
   .display { font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; }
 
-  .verbose-only { display: none; }
-  html[data-verbosity="long"] .verbose-only { display: revert; }
+  .verbose-only { display: revert; }
+  .hero .verbose-only { display: none; }
 
   /* ---------- CONTROLS BAR (replaces the navbar) ---------- */
   .controls-bar {
@@ -458,13 +458,6 @@
     </a>
     <div class="controls">
       <label class="control-group">
-        <span class="control-label">Text</span>
-        <select id="verbosity-control" class="control-select">
-          <option value="short" selected>Concise</option>
-          <option value="long">Full</option>
-        </select>
-      </label>
-      <label class="control-group">
         <span class="control-label">Name</span>
         <select id="name-position-control" class="control-select">
           <option value="right">Right of logo</option>
@@ -602,7 +595,6 @@
         document.documentElement.setAttribute(attr, e.target.value);
       });
     }
-    wireSimple('verbosity-control', 'data-verbosity');
     wireSimple('name-position-control', 'data-name-position');
     wireSimple('seam-shape-control', 'data-seam-shape');
     wireSimple('seam-color-control', 'data-seam-color');
