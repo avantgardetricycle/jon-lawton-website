@@ -457,14 +457,6 @@
       <span class="wordmark brand-name">Jon Lawton</span>
     </a>
     <div class="controls">
-      <label class="control-group">
-        <span class="control-label">Name</span>
-        <select id="name-position-control" class="control-select">
-          <option value="right">Right of logo</option>
-          <option value="overlay">Overlay</option>
-          <option value="below" selected>Below logo</option>
-        </select>
-      </label>
       <div class="control-group accent-dropdown">
         <span class="control-label">Accent</span>
         <details id="hero-accent-dropdown">
@@ -595,7 +587,6 @@
         document.documentElement.setAttribute(attr, e.target.value);
       });
     }
-    wireSimple('name-position-control', 'data-name-position');
     wireSimple('seam-shape-control', 'data-seam-shape');
     wireSimple('seam-color-control', 'data-seam-color');
 
