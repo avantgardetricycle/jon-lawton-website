@@ -20,8 +20,8 @@ Font, palette, video-position, accent, and divider dropdowns were removed on pur
 
 ## Page structure
 
-1. Sticky `.controls-bar` (explorer controls, not a production nav)
-2. `.hero` (`#top`) — headline + YouTube on the right
+1. Sticky `.controls-bar` (logo only; explorer dropdowns were removed)
+2. `.hero` (`#top`) — concise headline + YouTube on the right
 3. `.section-seam`
 4. `.quote-strip` — John Hammond
 5. `.section-seam`
@@ -33,12 +33,7 @@ Font, palette, video-position, accent, and divider dropdowns were removed on pur
 
 Seam SVGs are injected by JS into empty `.section-seam` divs. Shapes live in the `shapes` map near the bottom of `index.html`. Colors are CSS variables (`--seam-bright` / `--seam-mid` / `--seam-dark`).
 
-## Explorer controls
-
-Header dropdowns still on the page:
-
-- Text: Concise / Full (`data-verbosity`, Concise default). Concise copy is always visible; Full adds `.verbose-only` spans.
-- Name: Right of logo / Overlay / Below logo
+Body copy uses the full/verbose version. Hero extra phrases stay hidden (`.hero .verbose-only`). Hero CTAs are “Hear his latest release” and “Shows”.
 
 Copy voice is first-person-adjacent, warm, and specific. Keep “6- and 12-string” as written.
 
