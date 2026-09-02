@@ -20,7 +20,7 @@ Font, palette, video-position, accent, and divider dropdowns were removed on pur
 
 ## Page structure
 
-1. Sticky `.controls-bar` (logo only; explorer dropdowns were removed)
+1. Sticky `.controls-bar` — logo plus nav: Music (`#release`), Shows (`#shows`), About (`#bio`), Contact (`#contact`)
 2. `.hero` (`#top`) — concise headline + YouTube on the right
 3. `.section-seam`
 4. `.quote-strip` — John Hammond
