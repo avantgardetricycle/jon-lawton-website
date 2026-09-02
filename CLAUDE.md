@@ -12,11 +12,11 @@ Do not casually revert these. They are the current client defaults on `<html>`:
 - Palette: Weathered (`data-palette="weathered"`)
 - Video: right column YouTube embed (`data-video="right"`)
 - Name: below the logo (`data-name-position="below"`)
-- Hero accent: Color on “makes tradition come alive” (`data-hero-accent="color"`)
-- Divider: elongated diamonds, gold (`data-seam-shape="elongated"` `data-seam-color="gold"`)
+- Hero accent: pale white + bold on “makes tradition come alive”
+- Divider: gold elongated diamonds (locked)
 - Logo: `.brand-mark` is cropped toward square (78×145, mobile 58×108)
 
-Font, palette, and video-position dropdowns were removed on purpose. Those choices stay as HTML attributes.
+Font, palette, video-position, accent, and divider dropdowns were removed on purpose.
 
 ## Page structure
 
@@ -39,9 +39,6 @@ Header dropdowns still on the page:
 
 - Text: Concise / Full (`data-verbosity`, Concise default). Concise copy is always visible; Full adds `.verbose-only` spans.
 - Name: Right of logo / Overlay / Below logo
-- Accent: Color / Size / Bold (any combination)
-- Divider: Diamonds, Diamonds + emblem, Elongated diamonds, Curl, Plaque
-- Divider color: Gold / Burgundy
 
 Copy voice is first-person-adjacent, warm, and specific. Keep “6- and 12-string” as written.
 
