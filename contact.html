@@ -273,7 +273,7 @@
     <div>
       <p class="epk-tags">Oakland, CA &middot; Americana &middot; Blues &middot; Folk &middot; Acoustic</p>
       <div class="epk-photo">
-      <img src="public/images/uploads/jon_2.webp" alt="Jon Lawton" />
+      <img src="images/uploads/jon_2.webp" alt="Jon Lawton" />
       </div>
       <p class="pull-quote">&ldquo;I don't usually watch the opening act&hellip; He killed!&rdquo;<cite>John Hammond</cite></p>
       <a class="link-quiet" href="jon-lawton-press-kit.pdf">Download the full press kit (PDF) &rarr;</a>
@@ -335,6 +335,7 @@
         { hypothesisId: 'B', path: 'public/images/uploads/jon_2.webp' },
         { hypothesisId: 'B', path: '/public/images/uploads/jon_2.webp' },
         { hypothesisId: 'A', path: '/images/uploads/jon_2.webp' },
+        { hypothesisId: 'A', path: 'images/uploads/jon_2.webp' },
         { hypothesisId: 'C', path: '/contact' },
         { hypothesisId: 'C', path: '/contact.html' }
       ];
@@ -344,7 +345,7 @@
           headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd4cc4a' },
           body: JSON.stringify(Object.assign({
             sessionId: 'd4cc4a',
-            runId: 'pre-fix',
+            runId: 'post-fix',
             location: 'contact.html:probe',
             timestamp: Date.now()
           }, payload))

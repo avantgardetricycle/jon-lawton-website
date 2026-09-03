@@ -581,7 +581,8 @@
         { hypothesisId: 'A', path: '/contact' },
         { hypothesisId: 'C', path: '/contact.html' },
         { hypothesisId: 'B', path: '/public/images/uploads/jon_2.webp' },
-        { hypothesisId: 'A', path: '/images/uploads/jon_2.webp' }
+        { hypothesisId: 'A', path: '/images/uploads/jon_2.webp' },
+        { hypothesisId: 'A', path: 'images/uploads/jon_2.webp' }
       ];
       function send(payload) {
         fetch('http://127.0.0.1:7894/ingest/2f90ad25-35ee-429b-ad2b-77533d423883', {
@@ -589,7 +590,7 @@
           headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd4cc4a' },
           body: JSON.stringify(Object.assign({
             sessionId: 'd4cc4a',
-            runId: 'pre-fix',
+            runId: 'post-fix',
             location: 'index.html:probe',
             timestamp: Date.now()
           }, payload))
