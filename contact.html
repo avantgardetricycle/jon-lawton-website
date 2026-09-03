@@ -328,6 +328,55 @@
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
     });
+    // #region agent log
+    (function () {
+      var img = document.querySelector('.epk-photo img');
+      var paths = [
+        { hypothesisId: 'B', path: 'public/images/uploads/jon_2.webp' },
+        { hypothesisId: 'B', path: '/public/images/uploads/jon_2.webp' },
+        { hypothesisId: 'A', path: '/images/uploads/jon_2.webp' },
+        { hypothesisId: 'C', path: '/contact' },
+        { hypothesisId: 'C', path: '/contact.html' }
+      ];
+      function send(payload) {
+        fetch('http://127.0.0.1:7894/ingest/2f90ad25-35ee-429b-ad2b-77533d423883', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'd4cc4a' },
+          body: JSON.stringify(Object.assign({
+            sessionId: 'd4cc4a',
+            runId: 'pre-fix',
+            location: 'contact.html:probe',
+            timestamp: Date.now()
+          }, payload))
+        }).catch(function () {});
+      }
+      send({
+        hypothesisId: 'E',
+        message: 'contact page loaded',
+        data: {
+          href: location.href,
+          pathname: location.pathname,
+          imgSrcAttr: img ? img.getAttribute('src') : null,
+          imgResolvedSrc: img ? img.src : null
+        }
+      });
+      if (img) {
+        img.addEventListener('error', function () {
+          send({ hypothesisId: 'B', message: 'epk image error event', data: { src: img.getAttribute('src'), resolved: img.src } });
+        });
+        img.addEventListener('load', function () {
+          send({ hypothesisId: 'B', message: 'epk image load event', data: { src: img.getAttribute('src'), w: img.naturalWidth, h: img.naturalHeight } });
+        });
+      }
+      paths.forEach(function (item) {
+        fetch(item.path, { method: 'GET' }).then(function (res) {
+          send({ hypothesisId: item.hypothesisId, message: 'probe fetch', data: { path: item.path, status: res.status, ok: res.ok, type: res.headers.get('content-type') } });
+        }).catch(function (err) {
+          send({ hypothesisId: item.hypothesisId, message: 'probe fetch failed', data: { path: item.path, error: String(err) } });
+        });
+      });
+    })();
+    // #endregion
   </script>
 
 </body>
