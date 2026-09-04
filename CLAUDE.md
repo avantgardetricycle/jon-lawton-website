@@ -2,7 +2,7 @@
 
 Musician site for Jon Lawton (jonlawton.net). Prefer small content, copy, and styling edits. Match the existing voice, typography, and layout.
 
-`index.html` is the homepage (~4MB because images and videos are inlined as base64). `about.html` is the long-form About page. `contact.html` is booking and press contact. `music.html` is the catalog, videos, and liner-notes page. Edit surgically. Do not rewrite whole files.
+`index.html` is the homepage (~4MB because images and videos are inlined as base64). `about.html` is the long-form About page. `contact.html` is booking and press contact. `music.html` is the catalog, videos, and liner-notes page. `shows.html` is the dates and recent-stops page. Edit surgically. Do not rewrite whole files.
 
 ## Locked-in look
 
@@ -20,7 +20,7 @@ Font, palette, video-position, accent, and divider dropdowns were removed on pur
 
 ## Page structure
 
-1. Sticky `.controls-bar` — logo plus nav: Music (`music.html`), Shows (`#shows` / `index.html#shows`), About (`about.html`), Contact (`contact.html`)
+1. Sticky `.controls-bar` — logo plus nav: Music (`music.html`), Shows (`shows.html`), About (`about.html`), Contact (`contact.html`)
 2. `.hero` (`#top`) — concise headline + YouTube on the right
 3. `.section-seam`
 4. `.quote-strip` — John Hammond
