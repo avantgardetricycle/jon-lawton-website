@@ -346,17 +346,48 @@
   /* ---------- SHOWS (surface-c if defined, else falls back to bg) ---------- */
   .shows-section { background: var(--surface-c, var(--bg)); color: var(--surface-c-text, var(--text-body)); }
   .shows-section h2 { color: var(--surface-c-text, var(--text-heading)); }
-  .shows-card {
-    border: 1px solid rgba(233,201,138,0.3); border-radius: var(--radius-card);
-    padding: 2.4rem; background: rgba(0,0,0,0.15); max-width: 620px;
-  }
-  .shows-card .status {
+  .shows-section .status {
     font-family: var(--font-utility); font-size: 0.82rem; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.9rem;
+    text-transform: uppercase; color: var(--accent-bright); margin-bottom: 0.35rem;
     display: flex; align-items: center; gap: 0.6rem;
   }
-  .shows-card .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bright); }
-  .shows-card p { margin: 0 0 1.4rem; max-width: 46ch; }
+  .shows-section .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bright); }
+  .upcoming-list {
+    list-style: none; margin: 0; padding: 0; max-width: 740px;
+  }
+  .upcoming-item {
+    display: grid; grid-template-columns: 4.6rem 1fr auto;
+    gap: 0.35rem 1.5rem; align-items: center;
+    padding: 1.25rem 0;
+    border-bottom: 1.5px solid rgba(233,201,138,0.22);
+  }
+  .upcoming-item:first-child { border-top: 1.5px solid rgba(233,201,138,0.22); }
+  .upcoming-date {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 4.4rem;
+    border: 1px solid rgba(233,201,138,0.35); border-radius: 10px;
+    padding: 0.65rem 0.3rem 0.55rem;
+    color: var(--accent-bright); line-height: 1;
+  }
+  .upcoming-date .month {
+    font-family: var(--font-utility); font-size: 0.68rem; letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 0.32rem;
+  }
+  .upcoming-date .day {
+    font-family: var(--font-display); font-size: 1.85rem; color: var(--text-heading);
+  }
+  .upcoming-body h3 {
+    font-family: var(--font-display); font-weight: 400; font-size: 1.28rem;
+    color: var(--text-heading); margin: 0 0 0.28rem;
+  }
+  .upcoming-body p { margin: 0; font-size: 0.95rem; }
+  .upcoming-body .upcoming-when {
+    font-family: var(--font-utility); font-size: 0.74rem; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-top: 0.22rem;
+    white-space: nowrap;
+  }
+  .upcoming-item .link-quiet { white-space: nowrap; }
+  .shows-follow { margin-top: 1.6rem; }
 
   /* ---------- FOOTER ---------- */
   footer { background: var(--footer-bg); padding: 4rem 2rem 2.5rem; }
@@ -381,6 +412,10 @@
     html[data-video="full"] .hero-content { padding: 3rem 1.4rem 3.5rem; }
     .controls-bar { padding: 1.1rem 1.2rem; } .brand-mark { height: 58px; width: 108px; }
     .site-nav { gap: 1rem 1.2rem; }
+  }
+  @media (max-width: 600px) {
+    .upcoming-item { grid-template-columns: 4rem 1fr; }
+    .upcoming-item .link-quiet { grid-column: 2; justify-self: start; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -467,12 +502,35 @@
   <section class="section shows-section" id="shows">
     <p class="eyebrow">On the road</p>
     <h2 class="display" style="margin-bottom:1.8rem;">Shows and such</h2>
-    <p style="max-width:52ch; margin-bottom:1.8rem;">Jon's been keeping busy, with new recordings, good reviews coming in, and plenty of miles on the RV.</p>
-    <div class="shows-card">
-      <div class="status"><span class="dot"></span>Status: swap in real dates before launch</div>
-      <p>No shows currently booked. Check back soon.</p>
-          <a class="link-quiet" href="shows.html#recent">See past shows &rarr;</a>
-    </div>
+    <p style="max-width:52ch; margin-bottom:1.8rem;">Jon's been keeping busy, with new recordings, good reviews coming in, and plenty of miles on the RV. Two Bay Area dates this October:</p>
+    <div class="status"><span class="dot"></span>Upcoming</div>
+    <ol class="upcoming-list">
+      <li class="upcoming-item">
+        <time class="upcoming-date" datetime="2026-10-04">
+          <span class="month">Oct</span>
+          <span class="day">4</span>
+        </time>
+        <div class="upcoming-body">
+          <h3>Niles Farmers Market</h3>
+          <p>Old Town Niles, CA</p>
+          <p class="upcoming-when">Sunday, 9am&ndash;1pm</p>
+        </div>
+        <a class="link-quiet" href="https://nilesfarmersmarket.org/">Details &rarr;</a>
+      </li>
+      <li class="upcoming-item">
+        <time class="upcoming-date" datetime="2026-10-14">
+          <span class="month">Oct</span>
+          <span class="day">14</span>
+        </time>
+        <div class="upcoming-body">
+          <h3>Luigi's Listening Room</h3>
+          <p>Martinez, CA</p>
+          <p class="upcoming-when">Wednesday, 6pm</p>
+        </div>
+        <a class="link-quiet" href="https://luigismartinezmusic.weebly.com/">Details &rarr;</a>
+      </li>
+    </ol>
+    <p class="shows-follow"><a class="link-quiet" href="shows.html">All dates &amp; past stops &rarr;</a></p>
   </section>
 
   <footer id="contact">
