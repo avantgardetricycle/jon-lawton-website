@@ -110,6 +110,11 @@
     color: var(--text-heading);
   }
   .site-nav a:hover { color: var(--accent-bright); }
+  .site-nav a[aria-current="page"] {
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--accent-bright);
+    padding-bottom: 2px;
+  }
 
   .link-quiet {
     display: inline-block;
@@ -247,7 +252,7 @@
       <span class="wordmark brand-name">Jon Lawton</span>
     </a>
     <nav class="site-nav" aria-label="Primary">
-      <a href="music.html">Music</a>
+      <a href="music.html" aria-current="page">Music</a>
       <a href="shows.html">Shows</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
@@ -301,8 +306,8 @@
         <h3>Virginny Sessions, Vol. 1</h3>
         <a class="link-quiet" href="#">Listen &rarr;</a>
       </div>
-      <div class="catalog-card no-art">
-        <div class="placeholder">Cover art<br>needed</div>
+      <div class="catalog-card">
+        <div class="media"><img src="images/nerve_and_headache_tablets.jpg" alt="Nerve &amp; Headache Tablets album cover" loading="lazy"></div>
         <h3>Nerve &amp; Headache Tablets</h3>
         <a class="link-quiet" href="#">Listen &rarr;</a>
       </div>

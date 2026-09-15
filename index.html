@@ -147,6 +147,11 @@
     color: var(--text-heading);
   }
   .site-nav a:hover { color: var(--accent-bright); }
+  .site-nav a[aria-current="page"] {
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--accent-bright);
+    padding-bottom: 2px;
+  }
 
   /* ---------- SIGNATURE / SHARED COMPONENTS ---------- */
   .btn-plate {

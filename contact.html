@@ -110,6 +110,11 @@
     color: var(--text-heading);
   }
   .site-nav a:hover { color: var(--accent-bright); }
+  .site-nav a[aria-current="page"] {
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--accent-bright);
+    padding-bottom: 2px;
+  }
 
   .link-quiet {
     font-family: var(--font-utility);
@@ -251,7 +256,7 @@
       <a href="music.html">Music</a>
       <a href="shows.html">Shows</a>
       <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" aria-current="page">Contact</a>
     </nav>
   </header>
 

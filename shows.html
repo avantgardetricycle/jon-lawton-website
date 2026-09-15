@@ -110,6 +110,11 @@
     color: var(--text-heading);
   }
   .site-nav a:hover { color: var(--accent-bright); }
+  .site-nav a[aria-current="page"] {
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--accent-bright);
+    padding-bottom: 2px;
+  }
 
   .link-quiet {
     font-family: var(--font-utility);
@@ -266,7 +271,7 @@
     </a>
     <nav class="site-nav" aria-label="Primary">
       <a href="music.html">Music</a>
-      <a href="shows.html">Shows</a>
+      <a href="shows.html" aria-current="page">Shows</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
     </nav>
@@ -277,7 +282,7 @@
       <div>
         <p class="eyebrow">Shows</p>
         <h1 class="display">Shows and such</h1>
-        <p class="lede">Dates get added here as they're booked. Two on the books this October, plus a handful of rooms he's already been through.</p>
+        <p class="lede">Come see Jon live. Dates get added here as they&rsquo;re booked.</p>
         <div class="status"><span class="dot"></span>Upcoming</div>
         <ol class="upcoming-list" id="upcoming">
           <li class="upcoming-item">
