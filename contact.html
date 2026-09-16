@@ -312,15 +312,15 @@
 
     <div>
       <p class="eyebrow">Send a message</p>
-      <form id="contact-form" action="https://formsubmit.co/ajax/littlejonny1@mac.com" method="POST">
+      <form id="contact-form" action="/api/contact" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="fname">First name</label>
-            <input type="text" id="fname" name="First name" placeholder="Jane" autocomplete="given-name" required>
+            <input type="text" id="fname" name="firstName" placeholder="Jane" autocomplete="given-name" required>
           </div>
           <div class="form-group">
             <label for="lname">Last name</label>
-            <input type="text" id="lname" name="Last name" placeholder="Doe" autocomplete="family-name" required>
+            <input type="text" id="lname" name="lastName" placeholder="Doe" autocomplete="family-name" required>
           </div>
         </div>
         <div class="form-group">
@@ -329,13 +329,13 @@
         </div>
         <div class="form-group">
           <label for="subject">Subject</label>
-          <input type="text" id="subject" name="Subject" placeholder="Booking inquiry, press request, etc.">
+          <input type="text" id="subject" name="subject" placeholder="Booking inquiry, press request, etc.">
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="Message" placeholder="Tell Jon a bit about what you have in mind." required></textarea>
+          <textarea id="message" name="message" placeholder="Tell Jon a bit about what you have in mind." required></textarea>
         </div>
-        <input class="form-honey" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="form-honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn-plate">Send message</button>
         <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
       </form>
@@ -382,32 +382,46 @@
       var form = e.target;
       var btn = form.querySelector('[type="submit"]');
       var status = document.getElementById('form-status');
-      var data = new FormData(form);
-      data.append('_subject', 'jonlawton.net: ' + (form.Subject.value || 'Website inquiry'));
-      data.append('_template', 'table');
-      data.append('_captcha', 'false');
+      var honey = form.querySelector('[name="website"]');
+      var payload = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value,
+        website: honey ? honey.value : ''
+      };
       status.className = 'form-note';
       status.textContent = '';
       btn.disabled = true;
       btn.textContent = 'Sending…';
       fetch(form.action, {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: data
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
       }).then(function (res) {
-        return res.json().then(function (json) {
-          return { ok: res.ok, json: json };
+        return res.text().then(function (text) {
+          var json = null;
+          try { json = JSON.parse(text); } catch (err) { json = null; }
+          return { ok: res.ok, json: json, text: text };
         });
       }).then(function (result) {
-        var success = result.json && (result.json.success === true || result.json.success === 'true');
-        if (result.ok && success) {
+        var json = result.json || {};
+        if (result.ok && json.success === true) {
           status.className = 'form-note is-success';
           status.textContent = 'Got it. Jon will be in touch.';
           form.reset();
-        } else {
-          throw new Error('send failed');
+          return;
         }
-      }).catch(function () {
+        console.error('Contact form did not send', result);
+        status.className = 'form-note';
+        status.textContent = json.message
+          || 'Something didn’t send. Email littlejonny1@mac.com directly and it’ll get there.';
+      }).catch(function (err) {
+        console.error('Contact form failed', err);
         status.className = 'form-note';
         status.textContent = 'Something didn’t send. Email littlejonny1@mac.com directly and it’ll get there.';
       }).then(function () {
