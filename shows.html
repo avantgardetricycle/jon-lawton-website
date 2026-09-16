@@ -2,6 +2,12 @@
 <html lang="en" data-font="editorial" data-palette="weathered" data-video="right" data-name-position="below" data-hero-accent="color bold" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
+<script>
+  document.documentElement.classList.add('js-fade');
+  window.addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('is-ready');
+  });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -256,9 +262,22 @@
     .upcoming-item { grid-template-columns: 4rem 1fr; }
     .upcoming-item .link-quiet { grid-column: 2; justify-self: start; }
   }
+  html { background: var(--bg); }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js-fade body { opacity: 0; }
+    html.js-fade.is-ready body { opacity: 1; transition: opacity 0.55s ease; }
+    html.js-fade img { opacity: 0; transition: opacity 0.55s ease; }
+    html.js-fade img.is-loaded { opacity: 1; }
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 0.45s; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
   }
 </style>
 </head>
@@ -367,6 +386,25 @@
 
   <script>
     (function () {
+      var htmlEl = document.documentElement;
+      function revealPage() { htmlEl.classList.add('is-ready'); }
+      function markImgLoaded(img) { img.classList.add('is-loaded'); }
+      document.querySelectorAll('img').forEach(function (img) {
+        if (img.complete && img.naturalWidth) markImgLoaded(img);
+        else {
+          img.addEventListener('load', function () { markImgLoaded(img); });
+          img.addEventListener('error', function () { markImgLoaded(img); });
+        }
+      });
+      window.addEventListener('pagereveal', function (e) {
+        if (e.viewTransition) revealPage();
+      });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(revealPage); });
+      } else {
+        requestAnimationFrame(revealPage);
+      }
+
       var shapes = {
         elongated: '<svg viewBox="0 0 800 64" preserveAspectRatio="none" style="top:-32px;height:64px;"><defs><linearGradient id="__ID__" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--seam-mid)" stop-opacity="0"/><stop offset="18%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="82%" stop-color="var(--seam-mid)" stop-opacity="1"/><stop offset="100%" stop-color="var(--seam-mid)" stop-opacity="0"/></linearGradient></defs><line x1="0" y1="32" x2="800" y2="32" stroke="url(#__ID__)" stroke-width="1"/><path d="M400,22 Q403,30.5 421,32 Q403,33.5 400,43 Q397,33.5 379,32 Q397,30.5 400,22 Z" fill="var(--seam-bright)"/><path d="M333,25 Q335,31 348,32 Q335,33 333,40 Q331,33 318,32 Q331,31 333,25 Z" fill="var(--seam-mid)"/><path d="M467,25 Q469,31 482,32 Q469,33 467,40 Q465,33 452,32 Q465,31 467,25 Z" fill="var(--seam-mid)"/><path d="M278,27 Q279.5,31.5 289,32 Q279.5,32.5 278,37 Q276.5,32.5 267,32 Q276.5,31.5 278,27 Z" fill="var(--seam-dark)"/><path d="M522,27 Q523.5,31.5 533,32 Q523.5,32.5 522,37 Q520.5,32.5 511,32 Q520.5,31.5 522,27 Z" fill="var(--seam-dark)"/></svg>'
       };

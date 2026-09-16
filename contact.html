@@ -2,6 +2,12 @@
 <html lang="en" data-font="editorial" data-palette="weathered" data-video="right" data-name-position="below" data-hero-accent="color bold" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
+<script>
+  document.documentElement.classList.add('js-fade');
+  window.addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('is-ready');
+  });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -234,9 +240,22 @@
     .site-nav { gap: 1rem 1.2rem; }
     .contact-header, .contact-split { padding-left: 1.4rem; padding-right: 1.4rem; }
   }
+  html { background: var(--bg); }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js-fade body { opacity: 0; }
+    html.js-fade.is-ready body { opacity: 1; transition: opacity 0.55s ease; }
+    html.js-fade img { opacity: 0; transition: opacity 0.55s ease; }
+    html.js-fade img.is-loaded { opacity: 1; }
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 0.45s; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
   }
 </style>
 </head>
@@ -328,6 +347,26 @@
   </footer>
 
   <script>
+    (function () {
+      var htmlEl = document.documentElement;
+      function revealPage() { htmlEl.classList.add('is-ready'); }
+      function markImgLoaded(img) { img.classList.add('is-loaded'); }
+      document.querySelectorAll('img').forEach(function (img) {
+        if (img.complete && img.naturalWidth) markImgLoaded(img);
+        else {
+          img.addEventListener('load', function () { markImgLoaded(img); });
+          img.addEventListener('error', function () { markImgLoaded(img); });
+        }
+      });
+      window.addEventListener('pagereveal', function (e) {
+        if (e.viewTransition) revealPage();
+      });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(revealPage); });
+      } else {
+        requestAnimationFrame(revealPage);
+      }
+    })();
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
     });
