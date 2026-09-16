@@ -173,7 +173,8 @@
 
   .contact-header { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3.5rem; }
   .contact-header h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1.15; color: var(--text-heading); margin: 0 0 1rem; max-width: 20ch; }
-  .contact-header p.lede { font-size: 1.1rem; max-width: 56ch; color: var(--text-body); margin: 0 0 2rem; }
+  .contact-header p.lede { font-size: 1.1rem; max-width: 56ch; color: var(--text-body); margin: 0 0 1.2rem; }
+  .contact-header .btn-plate { margin-bottom: 2.2rem; }
   .booking-line { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: flex-start; }
   .booking-line .label {
     display: block; font-family: var(--font-utility); font-size: 0.7rem; letter-spacing: 0.14em;
@@ -263,7 +264,8 @@
   <section class="contact-header">
     <p class="eyebrow">Get in touch</p>
     <h1 class="display">Booking, press, or a quick hello</h1>
-    <p class="lede">For shows, licensing, or press inquiries, the fastest way to reach Jon is direct.</p>
+    <p class="lede">Reach out to Jon for bookings, licensing, and press inquiries.</p>
+    <button type="button" class="btn-plate" id="download-press-kit">Download Press Kit</button>
     <div class="booking-line">
       <div>
         <span class="label">Email</span>
@@ -283,7 +285,7 @@
       <img src="images/jon_lawton_contact_image.jpeg" alt="Guitars, mics, and an empty chair onstage" />
       </div>
       <p class="pull-quote">&ldquo;I don't usually watch the opening act&hellip; He killed!&rdquo;<cite>John Hammond</cite></p>
-      <a class="link-quiet" href="jon-lawton-press-kit.pdf">Download the full press kit (PDF) &rarr;</a>
+      <a class="link-quiet" id="press-kit-file" href="jon-lawton-press-kit.pdf">Download the full press kit (PDF) &rarr;</a>
     </div>
 
     <div>
@@ -334,6 +336,9 @@
   <script>
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
+    });
+    document.getElementById('download-press-kit').addEventListener('click', function () {
+      window.location.href = document.getElementById('press-kit-file').href;
     });
   </script>
 
