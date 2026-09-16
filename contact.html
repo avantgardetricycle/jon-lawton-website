@@ -163,12 +163,6 @@
     cursor: pointer;
     appearance: none;
   }
-  .btn-plate::before, .btn-plate::after {
-    content: ""; position: absolute; width: 4px; height: 4px; border-radius: 50%;
-    background: rgba(15,13,10,0.35); top: 6px;
-  }
-  .btn-plate::before { left: 7px; }
-  .btn-plate::after { right: 7px; }
   .btn-plate:hover { filter: brightness(1.06); }
 
   .contact-header { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3.5rem; }
@@ -285,7 +279,7 @@
       <img src="images/jon_lawton_contact_image.jpeg" alt="Guitars, mics, and an empty chair onstage" />
       </div>
       <p class="pull-quote">&ldquo;I don't usually watch the opening act&hellip; He killed!&rdquo;<cite>John Hammond</cite></p>
-      <a class="link-quiet" id="press-kit-file" href="jon-lawton-press-kit.pdf">Download the full press kit (PDF) &rarr;</a>
+      <a class="link-quiet" id="press-kit-file" href="jon-lawton-press-kit.pdf" target="_blank" rel="noopener noreferrer">Download the full press kit (PDF) &rarr;</a>
     </div>
 
     <div>
@@ -338,7 +332,7 @@
       e.preventDefault();
     });
     document.getElementById('download-press-kit').addEventListener('click', function () {
-      window.location.href = document.getElementById('press-kit-file').href;
+      window.open(document.getElementById('press-kit-file').href, '_blank', 'noopener,noreferrer');
     });
   </script>
 
