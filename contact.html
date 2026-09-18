@@ -2,7 +2,15 @@
 <html lang="en" data-font="editorial" data-palette="weathered" data-video="right" data-name-position="below" data-hero-accent="color bold" data-seam-shape="elongated" data-seam-color="gold">
 <head>
 <meta charset="UTF-8">
+<script>
+  document.documentElement.classList.add('js-fade');
+  window.addEventListener('pagereveal', function (e) {
+    if (e.viewTransition) document.documentElement.classList.add('is-ready');
+  });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <title>Contact — Jon Lawton</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,6 +116,11 @@
     color: var(--text-heading);
   }
   .site-nav a:hover { color: var(--accent-bright); }
+  .site-nav a[aria-current="page"] {
+    color: var(--accent-bright);
+    border-bottom: 1px solid var(--accent-bright);
+    padding-bottom: 2px;
+  }
 
   .link-quiet {
     font-family: var(--font-utility);
@@ -156,17 +169,12 @@
     cursor: pointer;
     appearance: none;
   }
-  .btn-plate::before, .btn-plate::after {
-    content: ""; position: absolute; width: 4px; height: 4px; border-radius: 50%;
-    background: rgba(15,13,10,0.35); top: 6px;
-  }
-  .btn-plate::before { left: 7px; }
-  .btn-plate::after { right: 7px; }
   .btn-plate:hover { filter: brightness(1.06); }
 
   .contact-header { max-width: 1200px; margin: 0 auto; padding: 2rem 2rem 3.5rem; }
   .contact-header h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1.15; color: var(--text-heading); margin: 0 0 1rem; max-width: 20ch; }
-  .contact-header p.lede { font-size: 1.1rem; max-width: 56ch; color: var(--text-body); margin: 0 0 2rem; }
+  .contact-header p.lede { font-size: 1.1rem; max-width: 56ch; color: var(--text-body); margin: 0 0 1.2rem; }
+  .contact-header .btn-plate { margin-bottom: 2.2rem; }
   .booking-line { display: flex; flex-wrap: wrap; gap: 2.5rem; align-items: flex-start; }
   .booking-line .label {
     display: block; font-family: var(--font-utility); font-size: 0.7rem; letter-spacing: 0.14em;
@@ -211,6 +219,15 @@
   .form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); }
   .form-group textarea { min-height: 130px; resize: vertical; }
   .form-note { font-family: var(--font-utility); font-size: 0.72rem; color: var(--muted); margin-top: 1.2rem; max-width: 40ch; }
+  .form-note.is-success { color: var(--accent-bright); }
+  .form-honey {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .btn-plate:disabled { cursor: wait; filter: saturate(0.65); }
 
   footer { background: var(--footer-bg); padding: 4rem 2rem 2.5rem; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2.5rem; }
@@ -232,9 +249,22 @@
     .site-nav { gap: 1rem 1.2rem; }
     .contact-header, .contact-split { padding-left: 1.4rem; padding-right: 1.4rem; }
   }
+  html { background: var(--bg); }
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js-fade body { opacity: 0; }
+    html.js-fade.is-ready body { opacity: 1; transition: opacity 0.55s ease; }
+    html.js-fade img { opacity: 0; transition: opacity 0.55s ease; }
+    html.js-fade img.is-loaded { opacity: 1; }
+    ::view-transition-old(root),
+    ::view-transition-new(root) { animation-duration: 0.45s; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { transition: none !important; }
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) { animation: none !important; }
   }
 </style>
 </head>
@@ -249,14 +279,15 @@
       <a href="music.html">Music</a>
       <a href="shows.html">Shows</a>
       <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+      <a href="contact.html" aria-current="page">Contact</a>
     </nav>
   </header>
 
   <section class="contact-header">
     <p class="eyebrow">Get in touch</p>
     <h1 class="display">Booking, press, or a quick hello</h1>
-    <p class="lede">For shows, licensing, or press inquiries, the fastest way to reach Jon is direct.</p>
+    <p class="lede">Reach out to Jon for bookings, licensing, and press inquiries.</p>
+    <button type="button" class="btn-plate" id="download-press-kit">Download Press Kit</button>
     <div class="booking-line">
       <div>
         <span class="label">Email</span>
@@ -273,28 +304,28 @@
     <div>
       <p class="epk-tags">Oakland, CA &middot; Americana &middot; Blues &middot; Folk &middot; Acoustic</p>
       <div class="epk-photo">
-      <img src="images/uploads/jon_2.webp" alt="Jon Lawton" />
+      <img src="images/jon_lawton_contact_image.jpeg" alt="Guitars, mics, and an empty chair onstage" />
       </div>
       <p class="pull-quote">&ldquo;I don't usually watch the opening act&hellip; He killed!&rdquo;<cite>John Hammond</cite></p>
-      <a class="link-quiet" href="jon-lawton-press-kit.pdf">Download the full press kit (PDF) &rarr;</a>
+      <a class="link-quiet" id="press-kit-file" href="jon-lawton-press-kit.pdf" target="_blank" rel="noopener noreferrer">Download the full press kit (PDF) &rarr;</a>
     </div>
 
     <div>
       <p class="eyebrow">Send a message</p>
-      <form id="contact-form">
+      <form id="contact-form" action="/api/contact" method="POST">
         <div class="form-row">
           <div class="form-group">
             <label for="fname">First name</label>
-            <input type="text" id="fname" name="fname" placeholder="Jane">
+            <input type="text" id="fname" name="firstName" placeholder="Jane" autocomplete="given-name" required>
           </div>
           <div class="form-group">
             <label for="lname">Last name</label>
-            <input type="text" id="lname" name="lname" placeholder="Doe">
+            <input type="text" id="lname" name="lastName" placeholder="Doe" autocomplete="family-name" required>
           </div>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com">
+          <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
         </div>
         <div class="form-group">
           <label for="subject">Subject</label>
@@ -302,10 +333,11 @@
         </div>
         <div class="form-group">
           <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="Tell Jon a bit about what you have in mind."></textarea>
+          <textarea id="message" name="message" placeholder="Tell Jon a bit about what you have in mind." required></textarea>
         </div>
+        <input class="form-honey" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button type="submit" class="btn-plate">Send message</button>
-        <p class="form-note">This form isn't connected to email yet &mdash; for now, reach out directly using the details above.</p>
+        <p class="form-note" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -325,8 +357,80 @@
   </footer>
 
   <script>
+    (function () {
+      var htmlEl = document.documentElement;
+      function revealPage() { htmlEl.classList.add('is-ready'); }
+      function markImgLoaded(img) { img.classList.add('is-loaded'); }
+      document.querySelectorAll('img').forEach(function (img) {
+        if (img.complete && img.naturalWidth) markImgLoaded(img);
+        else {
+          img.addEventListener('load', function () { markImgLoaded(img); });
+          img.addEventListener('error', function () { markImgLoaded(img); });
+        }
+      });
+      window.addEventListener('pagereveal', function (e) {
+        if (e.viewTransition) revealPage();
+      });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () { requestAnimationFrame(revealPage); });
+      } else {
+        requestAnimationFrame(revealPage);
+      }
+    })();
     document.getElementById('contact-form').addEventListener('submit', function (e) {
       e.preventDefault();
+      var form = e.target;
+      var btn = form.querySelector('[type="submit"]');
+      var status = document.getElementById('form-status');
+      var honey = form.querySelector('[name="website"]');
+      var payload = {
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        email: form.email.value,
+        subject: form.subject.value,
+        message: form.message.value,
+        website: honey ? honey.value : ''
+      };
+      status.className = 'form-note';
+      status.textContent = '';
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }).then(function (res) {
+        return res.text().then(function (text) {
+          var json = null;
+          try { json = JSON.parse(text); } catch (err) { json = null; }
+          return { ok: res.ok, json: json, text: text };
+        });
+      }).then(function (result) {
+        var json = result.json || {};
+        if (result.ok && json.success === true) {
+          status.className = 'form-note is-success';
+          status.textContent = 'Got it. Jon will be in touch.';
+          form.reset();
+          return;
+        }
+        console.error('Contact form did not send', result);
+        status.className = 'form-note';
+        status.textContent = json.message
+          || 'Something didn’t send. Email littlejonny1@mac.com directly and it’ll get there.';
+      }).catch(function (err) {
+        console.error('Contact form failed', err);
+        status.className = 'form-note';
+        status.textContent = 'Something didn’t send. Email littlejonny1@mac.com directly and it’ll get there.';
+      }).then(function () {
+        btn.disabled = false;
+        btn.textContent = 'Send message';
+      });
+    });
+    document.getElementById('download-press-kit').addEventListener('click', function () {
+      window.open(document.getElementById('press-kit-file').href, '_blank', 'noopener,noreferrer');
     });
   </script>
 
