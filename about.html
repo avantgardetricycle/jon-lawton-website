@@ -233,15 +233,9 @@
 
   footer { background: var(--footer-bg); padding: 4rem 2rem 2.5rem; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 2.5rem; }
-  .footer-inner .wordmark { font-size: 1.1rem; }
-  .footer-contact { font-family: var(--font-utility); font-size: 0.88rem; color: var(--text-body); line-height: 2; }
-  .footer-contact a { text-decoration: none; color: var(--text-heading); }
-  .footer-contact a:hover { color: var(--accent-bright); }
-  .footer-bottom {
-    max-width: 1200px; margin: 3rem auto 0; padding-top: 1.6rem;
-    border-top: 1px solid rgba(233,201,138,0.15); font-family: var(--font-utility);
-    font-size: 0.75rem; letter-spacing: 0.06em; color: var(--muted);
-  }
+  .footer-brand, .footer-contact { font-family: var(--font-utility); font-size: 0.88rem; color: var(--text-body); line-height: 2; }
+  .footer-brand a, .footer-contact a { text-decoration: none; color: var(--text-heading); }
+  .footer-brand a:hover, .footer-contact a:hover { color: var(--accent-bright); }
 
   @media (max-width: 900px) {
     .split { grid-template-columns: 1fr; }
@@ -338,15 +332,15 @@
 
   <footer id="contact">
     <div class="footer-inner">
-      <span class="wordmark">Jon Lawton</span>
+      <div class="footer-brand">
+        &copy; Jon Lawton 2026<br>
+        Website designed and created by <a href="https://underdogsoftware.xyz" target="_blank" rel="noopener noreferrer">Underdog Software</a>
+      </div>
       <div class="footer-contact">
         Booking &amp; media<br>
         <a href="mailto:littlejonny1@mac.com">littlejonny1@mac.com</a><br>
         <a href="tel:5105071720">510&ndash;507&ndash;1720</a>
       </div>
-    </div>
-    <div class="footer-bottom">
-      &copy; Jon Lawton &middot; Oakland, CA
     </div>
   </footer>
 
