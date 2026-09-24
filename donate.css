@@ -82,6 +82,10 @@
   width: min(16rem, 100%);
   height: auto;
 }
+html.js-fade .donate-qr-wrap img,
+html.js-fade .donate-qr-wrap img.is-loaded {
+  opacity: 1;
+}
 .donate-direct {
   margin: 0;
   text-align: center;

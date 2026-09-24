@@ -25,7 +25,7 @@
           '<button type="button" data-donate-method="paypal" aria-pressed="true">PayPal</button>' +
           '<button type="button" data-donate-method="venmo" aria-pressed="false">Venmo</button>' +
         '</div>' +
-        '<div class="donate-qr-wrap"><img class="donate-qr" src="' + METHODS.paypal.qr + '" alt="' + METHODS.paypal.alt + '"></div>' +
+        '<div class="donate-qr-wrap"><img class="donate-qr is-loaded" src="' + METHODS.paypal.qr + '" alt="' + METHODS.paypal.alt + '"></div>' +
         '<p class="donate-direct">Or click <a class="donate-direct-link" href="' + PAYPAL_WEB + '" target="_blank" rel="noopener noreferrer">here</a> to donate directly</p>' +
       '</div>' +
       '<div class="donate-mobile-actions">' +
@@ -44,6 +44,7 @@
     var method = METHODS[name];
     qrImg.src = method.qr;
     qrImg.alt = method.alt;
+    qrImg.classList.add('is-loaded');
     directLink.href = method.web;
     modal.querySelectorAll('[data-donate-method]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', btn.getAttribute('data-donate-method') === name ? 'true' : 'false');
