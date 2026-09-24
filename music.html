@@ -250,6 +250,7 @@
     ::view-transition-new(*) { animation: none !important; }
   }
 </style>
+<link rel="stylesheet" href="donate.css">
 </head>
 <body>
 
@@ -263,6 +264,7 @@
       <a href="shows.html">Shows</a>
       <a href="about.html">About</a>
       <a href="contact.html">Contact</a>
+      <a href="#donate" data-donate-open>Donate</a>
     </nav>
   </header>
 
@@ -277,6 +279,7 @@
       <a class="btn-provider" href="https://music.apple.com/us/artist/jon-lawton/330483351" target="_blank" rel="noopener noreferrer">iTunes</a>
       <a class="btn-provider" href="https://jonlawton.bandcamp.com/album/midnight-with-the-light-on" target="_blank" rel="noopener noreferrer">Bandcamp</a>
     </div>
+    <a class="link-quiet" href="#donate" data-donate-open>Support the music &rarr;</a>
   </section>
 
   <section class="section" id="latest">
@@ -378,7 +381,7 @@
       <p class="signoff">As Jon puts it, he still wants to &ldquo;push these songs through the birth canal&rdquo; and get them out where people can actually hear them.</p>
 
       <div class="support-row">
-        <a class="link-quiet" href="#">Support the music &rarr;</a>
+        <a class="link-quiet" href="#donate" data-donate-open>Support the music &rarr;</a>
         <p>Jon offers a way to chip in toward the real cost of making these records, entirely optional and never required to listen.</p>
       </div>
     </div>
@@ -428,6 +431,7 @@
       });
     })();
   </script>
+  <script src="donate.js"></script>
 
 </body>
 </html>
