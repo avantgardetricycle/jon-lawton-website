@@ -15,6 +15,7 @@
 }
 .donate-dialog {
   position: relative;
+  z-index: 1;
   width: min(26rem, 100%);
   background: var(--bg, #0d0906);
   color: var(--text-body, #a49c82);
@@ -82,9 +83,10 @@
   width: min(16rem, 100%);
   height: auto;
 }
+.donate-qr-wrap img[hidden] { display: none !important; }
 html.js-fade .donate-qr-wrap img,
 html.js-fade .donate-qr-wrap img.is-loaded {
-  opacity: 1;
+  opacity: 1 !important;
 }
 .donate-direct {
   margin: 0;

@@ -4,8 +4,8 @@
   var VENMO_WEB = 'https://venmo.com/jonlawton';
   var VENMO_APP = 'venmo://paycharge?txn=pay&recipients=jonlawton';
   var METHODS = {
-    paypal: { qr: 'images/paypal-qr.png', alt: 'PayPal QR code', web: PAYPAL_WEB, app: PAYPAL_APP },
-    venmo: { qr: 'images/venmo-qr.png', alt: 'Venmo QR code', web: VENMO_WEB, app: VENMO_APP }
+    paypal: { web: PAYPAL_WEB, app: PAYPAL_APP },
+    venmo: { web: VENMO_WEB, app: VENMO_APP }
   };
 
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
@@ -21,11 +21,14 @@
       '<button type="button" class="donate-close" data-donate-close aria-label="Close">&times;</button>' +
       '<h2 id="donate-title">Support the music</h2>' +
       '<div class="donate-desktop">' +
-        '<div class="donate-toggle" role="tablist">' +
+        '<div class="donate-toggle">' +
           '<button type="button" data-donate-method="paypal" aria-pressed="true">PayPal</button>' +
           '<button type="button" data-donate-method="venmo" aria-pressed="false">Venmo</button>' +
         '</div>' +
-        '<div class="donate-qr-wrap"><img class="donate-qr is-loaded" src="' + METHODS.paypal.qr + '" alt="' + METHODS.paypal.alt + '"></div>' +
+        '<div class="donate-qr-wrap">' +
+          '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png" alt="PayPal QR code">' +
+          '<img class="donate-qr is-loaded" data-qr="venmo" src="images/venmo-qr.png" alt="Venmo QR code" hidden>' +
+        '</div>' +
         '<p class="donate-direct">Or click <a class="donate-direct-link" href="' + PAYPAL_WEB + '" target="_blank" rel="noopener noreferrer">here</a> to donate directly</p>' +
       '</div>' +
       '<div class="donate-mobile-actions">' +
@@ -36,15 +39,15 @@
   document.body.appendChild(modal);
 
   var dialog = modal.querySelector('.donate-dialog');
-  var qrImg = modal.querySelector('.donate-qr');
   var directLink = modal.querySelector('.donate-direct-link');
   var lastFocus = null;
 
   function setMethod(name) {
     var method = METHODS[name];
-    qrImg.src = method.qr;
-    qrImg.alt = method.alt;
-    qrImg.classList.add('is-loaded');
+    if (!method) return;
+    modal.querySelectorAll('[data-qr]').forEach(function (img) {
+      img.hidden = img.getAttribute('data-qr') !== name;
+    });
     directLink.href = method.web;
     modal.querySelectorAll('[data-donate-method]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', btn.getAttribute('data-donate-method') === name ? 'true' : 'false');
@@ -80,25 +83,35 @@
     window.location.href = appUrl;
   }
 
+  function elFromEvent(e) {
+    var t = e.target;
+    return t && t.nodeType === 1 ? t : t && t.parentElement;
+  }
+
   document.addEventListener('click', function (e) {
-    var openTrigger = e.target.closest('[data-donate-open]');
-    if (openTrigger) {
+    var el = elFromEvent(e);
+    if (!el) return;
+    if (el.closest('[data-donate-open]')) {
       openModal(e);
-      return;
     }
-    if (e.target.closest('[data-donate-close]')) {
+  });
+
+  modal.addEventListener('click', function (e) {
+    var el = elFromEvent(e);
+    if (!el) return;
+    if (el.closest('[data-donate-close]')) {
       closeModal();
       return;
     }
-    var methodBtn = e.target.closest('[data-donate-method]');
+    var methodBtn = el.closest('[data-donate-method]');
     if (methodBtn) {
       setMethod(methodBtn.getAttribute('data-donate-method'));
       return;
     }
-    var appBtn = e.target.closest('[data-donate-app]');
+    var appBtn = el.closest('[data-donate-app]');
     if (appBtn) {
       var method = METHODS[appBtn.getAttribute('data-donate-app')];
-      openAppOrWeb(method.app, method.web);
+      if (method) openAppOrWeb(method.app, method.web);
     }
   });
 
