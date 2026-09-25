@@ -1,6 +1,6 @@
 (function () {
-  var PAYPAL_WEB = 'https://www.paypal.com/qrcodes/managed/7fec9b1a-0d22-4950-8a4d-41a32de31b01';
-  var PAYPAL_APP = 'paypal://qrcodes/managed/7fec9b1a-0d22-4950-8a4d-41a32de31b01';
+  var PAYPAL_WEB = 'https://paypal.me/littlejonny1';
+  var PAYPAL_APP = 'paypal://paypalme/littlejonny1';
   var VENMO_WEB = 'https://venmo.com/jonlawton';
   var VENMO_APP = 'venmo://paycharge?txn=pay&recipients=jonlawton';
   var METHODS = {
@@ -26,7 +26,7 @@
           '<button type="button" data-donate-method="venmo" aria-pressed="false">Venmo</button>' +
         '</div>' +
         '<div class="donate-qr-wrap">' +
-          '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png" alt="PayPal QR code">' +
+          '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png?v=2" alt="PayPal QR code">' +
           '<img class="donate-qr is-loaded" data-qr="venmo" src="images/venmo-qr.png" alt="Venmo QR code" hidden>' +
         '</div>' +
         '<p class="donate-direct">Or click <a class="donate-direct-link" href="' + PAYPAL_WEB + '" target="_blank" rel="noopener noreferrer">here</a> to donate directly</p>' +
