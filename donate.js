@@ -4,8 +4,8 @@
   var VENMO_WEB = 'https://venmo.com/jonlawton';
   var VENMO_APP = 'venmo://paycharge?txn=pay&recipients=jonlawton';
   var METHODS = {
-    paypal: { web: PAYPAL_WEB, app: PAYPAL_APP },
-    venmo: { web: VENMO_WEB, app: VENMO_APP }
+    paypal: { web: PAYPAL_WEB, app: PAYPAL_APP, label: 'PayPal' },
+    venmo: { web: VENMO_WEB, app: VENMO_APP, label: 'Venmo' }
   };
 
   if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
@@ -25,6 +25,7 @@
           '<button type="button" data-donate-method="paypal" aria-pressed="true">PayPal</button>' +
           '<button type="button" data-donate-method="venmo" aria-pressed="false">Venmo</button>' +
         '</div>' +
+        '<p class="donate-scan">Scan the code to donate to Jon on PayPal</p>' +
         '<div class="donate-qr-wrap">' +
           '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png?v=2" alt="PayPal QR code">' +
           '<img class="donate-qr is-loaded" data-qr="venmo" src="images/venmo-qr.png" alt="Venmo QR code" hidden>' +
@@ -40,6 +41,7 @@
 
   var dialog = modal.querySelector('.donate-dialog');
   var directLink = modal.querySelector('.donate-direct-link');
+  var scanLine = modal.querySelector('.donate-scan');
   var lastFocus = null;
 
   function setMethod(name) {
@@ -48,6 +50,7 @@
     modal.querySelectorAll('[data-qr]').forEach(function (img) {
       img.hidden = img.getAttribute('data-qr') !== name;
     });
+    scanLine.textContent = 'Scan the code to donate to Jon on ' + method.label;
     directLink.href = method.web;
     modal.querySelectorAll('[data-donate-method]').forEach(function (btn) {
       btn.setAttribute('aria-pressed', btn.getAttribute('data-donate-method') === name ? 'true' : 'false');
