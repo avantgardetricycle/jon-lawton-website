@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /jon-lawton-seam-dividers-v4
+Disallow: /jon-lawton-seam-dividers-v4.html
+
+Sitemap: https://jonlawton.net/sitemap.xml
