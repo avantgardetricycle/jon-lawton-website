@@ -90,10 +90,9 @@
 }
 .donate-qr-wrap img {
   display: block;
-  width: 128%;
-  height: 128%;
-  max-width: none;
-  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .donate-qr-wrap img[hidden] { display: none !important; }
 html.js-fade .donate-qr-wrap img,

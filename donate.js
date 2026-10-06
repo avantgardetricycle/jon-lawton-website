@@ -27,8 +27,8 @@
         '</div>' +
         '<p class="donate-scan">Scan the code to donate to Jon on PayPal</p>' +
         '<div class="donate-qr-wrap">' +
-          '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png?v=2" alt="PayPal QR code">' +
-          '<img class="donate-qr is-loaded" data-qr="venmo" src="images/venmo-qr.png" alt="Venmo QR code" hidden>' +
+          '<img class="donate-qr is-loaded" data-qr="paypal" src="images/paypal-qr.png?v=3" alt="PayPal QR code">' +
+          '<img class="donate-qr is-loaded" data-qr="venmo" src="images/venmo-qr.png?v=3" alt="Venmo QR code" hidden>' +
         '</div>' +
         '<p class="donate-direct">Or click <a class="donate-direct-link" href="' + PAYPAL_WEB + '" target="_blank" rel="noopener noreferrer">here</a> to donate directly</p>' +
       '</div>' +
